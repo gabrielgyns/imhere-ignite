@@ -36,10 +36,12 @@ const data = [
 ];
 
 export default function Home() {
-	const [participants, setParticipants] = useState(data);
-	const [participant, setParticipant] = useState("");
+	const [participants, setParticipants] = useState<string[]>(data);
+	const [participant, setParticipant] = useState<string>("");
 
 	function handleAddParticipant() {
+		if (!participant) return;
+
 		if (participants.includes(participant)) {
 			// TODO: Ignore Case on verify if participant exists.
 			Alert.alert("Já existe um participante na lista com esse nome.");
@@ -85,7 +87,7 @@ export default function Home() {
 					placeholder="Nome do participante"
 					placeholderTextColor="#6B6B6B"
 					value={participant}
-					onChangeText={(text) => setParticipant(text)}
+					onChangeText={setParticipant}
 				/>
 
 				<TouchableOpacity style={styles.button} onPress={handleAddParticipant}>
